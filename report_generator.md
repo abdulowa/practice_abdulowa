@@ -2,7 +2,7 @@
 
 ## 1. Описание предметной области и сущностей
 
-Программа генерирует статистические отчеты по данным погодных измерений (температура и влажность), вычисляя различные показатели и выводя их в разных форматах. Система разделена на две независимые стратегии: форматирование отчета (IRenderer) и вычисление статистики (делегат Func<IEnumerable<double>, object>). HtmlRenderer и MarkdownRenderer отвечают за визуальное оформление в HTML и Markdown соответственно, а методы Statistics.MeanAndStd и Statistics.Median выполняют математические расчеты. ReportMaker объединяет обе стратегии через конструктор и формирует итоговый отчет, а ReportMakerHelper предоставляет удобные методы для создания четырех комбинаций отчетов (HTML/MeanAndStd, HTML/Median, Markdown/MeanAndStd, Markdown/Median).
+Программа генерирует статистические отчеты по данным погодных измерений (температура и влажность), вычисляя различные показатели и выводя их в разных форматах. Система разделена на две независимые стратегии: форматирование отчета (IRenderer) и вычисление статистики (делегат FuncCalculator). HtmlRenderer и MarkdownRenderer отвечают за визуальное оформление в HTML и Markdown соответственно, а методы Statistics.MeanAndStd и Statistics.Median выполняют математические расчеты. ReportMaker объединяет обе стратегии через конструктор и формирует итоговый отчет, а ReportMakerHelper предоставляет удобные методы для создания четырех комбинаций отчетов (HTML/MeanAndStd, HTML/Median, Markdown/MeanAndStd, Markdown/Median).
 
 ## 2. Диаграмма классов
 
@@ -37,9 +37,14 @@ classDiagram
 
     class ReportMaker {
         -IRenderer _renderer
-        -Func~IEnumerable~double~, object~ _statisticsCalculator
-        +ReportMaker(IRenderer renderer, Func~IEnumerable~double~, object~ calculator)
+        -FuncCalculator _statisticsCalculator
+        +ReportMaker(IRenderer renderer, FuncCalculator calculator)
         +MakeReport(IEnumerable~Measurement~ measurements) string
+    }
+
+    class FuncCalculator {
+        <<delegate>>
+        +Invoke(IEnumerable~double~ data) object
     }
 
     class ReportMakerHelper {
@@ -70,7 +75,7 @@ classDiagram
     IRenderer <|.. MarkdownRenderer
 
     ReportMaker o-- IRenderer
-    ReportMaker o-- Func~IEnumerable~double~, object~
+    ReportMaker o-- FuncCalculator
 
     ReportMaker ..> Measurement
     ReportMaker ..> Statistics
