@@ -90,3 +90,5 @@ classDiagram
     Interaction ..> IHaveTreasure
     Player ..> Army
     Player ..> Treasure
+```
+
