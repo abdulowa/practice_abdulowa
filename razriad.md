@@ -39,3 +39,4 @@ classDiagram
     Extensions ..> IEnumerable~int~
     Extensions ..> Func~int,int~
     ControlDigitAlgo ..> IEnumerable~int~
+```
