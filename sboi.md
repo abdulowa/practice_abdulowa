@@ -47,3 +47,4 @@ classDiagram
     Failure --> Device
     ReportMaker ..> Failure
     ReportMaker ..> Device
+```
