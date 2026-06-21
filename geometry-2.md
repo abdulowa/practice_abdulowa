@@ -86,3 +86,4 @@ classDiagram
     
     BoundingBoxVisitor ..> RectangularCuboid
     BoxifyVisitor ..> Body
+```
