@@ -105,3 +105,4 @@ classDiagram
     BuilderCommand --> Point
 
     Robot ..> Robot~TCommand~
+```
