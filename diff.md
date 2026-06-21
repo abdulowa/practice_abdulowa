@@ -67,3 +67,4 @@ classDiagram
     Algebra ..> ExpressionType
 
     BinaryExpression --> ExpressionType : NodeType
+```
