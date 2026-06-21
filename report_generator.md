@@ -87,3 +87,4 @@ classDiagram
     ReportMakerHelper ..> Measurement
 
     Statistics ..> MeanAndStd
+```
